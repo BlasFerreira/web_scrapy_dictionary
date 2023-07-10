@@ -13,19 +13,24 @@ if __name__=='__main__':
 		# Order word by frecuency
 		words = contar_palabras(user_input)
 
-		# Scrapy
-		df = scrapy( words['word'].values )
-		# df = scrapy()
+		if len(words) != 0 :
+
+			#Banner
+			st.title('Beginning of scrapy')
+
+			# Scrapy
+			df = scrapy( words['word'].values )
+			# df = scrapy()
 
 
-		st.write("Words sorted by frequency ", words['word'].values )
-		st.write("Database with words that you are learning ", df )
+			st.write("Words sorted by frequency ", words['word'].values )
+			st.write("Database with words that you are learning ", df )
 
 
-		# Agrega un botón de descarga
-		st.download_button(
-			label='Descargar CSV',
-			data=df[['english_phrase','spanish_phrase']].to_csv(index=False, header=False).encode('utf-8-sig'),
-			file_name='datos.csv',
-			mime='text/csv'
-			)
+			# Agrega un botón de descarga
+			st.download_button(
+				label='Descargar CSV',
+				data=df[['english_phrase','spanish_phrase']].to_csv(index=False, header=False).encode('utf-8-sig'),
+				file_name='datos.csv',
+				mime='text/csv'
+				)
