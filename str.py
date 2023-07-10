@@ -25,7 +25,7 @@ if __name__=='__main__':
 		# Agrega un botón de descarga
 		st.download_button(
 			label='Descargar CSV',
-			data=df[['english_phrase','spanish_phrase']].to_csv(index=False, header=False).encode('utf-8'),
+			data=df[['english_phrase','spanish_phrase']].to_csv(index=False, header=False).encode('utf-8-sig'),
 			file_name='datos.csv',
 			mime='text/csv'
 			)
