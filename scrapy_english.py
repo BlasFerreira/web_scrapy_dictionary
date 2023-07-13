@@ -54,8 +54,8 @@ def scrapy_promr( uniqueword ):
                 word_english = response3.xpath(f'//div[@class="allSamples"]/div[{i}]/span[@class="samSource"]/span//text()')
                 word_english = word_english[0].lower()
 #                 print(word_english)
-                body_english = ''.join(body_english).replace( f'{word_english}',f'[{word_english}]')
-                body_english = f'[{word_english}]  ' + body_english
+                body_english = ''.join(body_english).replace( f'{word_english}',f'[ {word_english} ]')
+                body_english = f'[ {word_english} ]  ' + body_english
                 body_english = body_english.lower()
 
                 body_spanish = response3.xpath(f'//div[@class="allSamples"]/div[{i}]/span[@class="samTranslation"]//text()')
