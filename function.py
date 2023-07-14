@@ -82,22 +82,26 @@ def scrapy_promr( uniqueword ):
 
 					if len(word_english) != 0 :
 						word_english = word_english[0].lower()
-						body_english = ''.join(body_english).replace( f'{word_english}',f'[{word_english}]')
-						body_english = f'[{word_english}]  ' + body_english
+						body_english = ''.join(body_english).replace( f'{word_english}',f' [ {word_english} ] ')
+						body_english = f'[ {word_english} ]   ' + body_english
 						body_english = body_english.lower()
+						
 						body_spanish = response3.xpath(f'//div[@class="allSamples"]/div[{i}]/span[@class="samTranslation"]//text()')
 						body_spanish = ''.join(body_spanish)
 						body_spanish = body_spanish.lower()
 						word_spanish = response3.xpath(f'//div[@class="allSamples"]/div[{i}]/span[@class="samTranslation"]/a//text()')
 						word_spanish = ''.join(word_spanish).lower()
-						body_spanish = body_spanish.lower().replace( f'{word_spanish}',f'[{word_spanish}]')
+					
+
+						if len(word_spanish) != 0 : 
+							body_spanish = body_spanish.lower().replace( f'{word_spanish}',f' [ {word_spanish} ] ')
 
 						df = df.append({'server' : 'Promt',
 						'search_word' : uniqueword,
 						'english_word': word_english,
 						'english_phrase':body_english,
 						'spanish_word':word_spanish ,
-						'spanish_phrase':f'[ {word_spanish} ]  ' + body_spanish,
+						'spanish_phrase': f' [ {word_spanish} ]    ' + body_spanish,
 						'link':url},
 						ignore_index=True)
 
@@ -138,12 +142,13 @@ def scrapy_linguee( uniqueword ):
 
 				if (len(english_phrase) and len(spanish_word))  != 0 :  
 
+
 					df = df.append({'server' : 'linguee',
 					'search_word':uniqueword,
 					'english_word':uniqueword,
-					'english_phrase':f'[ {uniqueword} ]  ' + english_phrase[0].replace( f'{uniqueword}',f'[ {uniqueword} ]').lower(),
+					'english_phrase':f' [ {uniqueword} ]   ' + english_phrase[0].replace( f'{uniqueword}',f' [ {uniqueword} ] ').lower(),
 					'spanish_word' : spanish_word[0] ,
-					'spanish_phrase': f'[ {spanish_word[0]} ]  ' + spanish_phrase[0].replace( f'{spanish_word[0]}',f'[ {spanish_word[0]} ]').lower(),                    
+					'spanish_phrase': f' [ {spanish_word[0]} ]   ' + spanish_phrase[0].replace( f'{spanish_word[0]}',f' [ {spanish_word[0]} ] ').lower(),                    
 					'link':url }, ignore_index=True)
 
 
