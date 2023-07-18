@@ -40,12 +40,20 @@ def scrapy_promr( uniqueword ):
     
     url = f'https://www.online-translator.com/contexts/english-spanish/{uniqueword}'
     df = pd.DataFrame(columns=['server','search_word','english_word','english_phrase','spanish_word','spanish_phrase','link'])
+
+    headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Referer': site
+    }
     
     
 #     print(uniqueword,url)
 
     try:
-        response = requests.get(url)
+        response = requests.get(url,headers = headers)
         if response.status_code == 200 :
             response2 = response.content.decode('utf-8')
             response3 = html.fromstring(response2)   
