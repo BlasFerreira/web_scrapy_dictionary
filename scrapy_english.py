@@ -99,15 +99,28 @@ def scrapy_promr( uniqueword ):
 
 
 def scrapy_linguee( uniqueword ):
-    
+
+    session = requests.Session()
+
     url = f'https://www.linguee.com/english-spanish/search?source=auto&query={uniqueword}'
+
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8,es;q=0.7",
+        "Cookie": "ForeignLang=ES; cookie=3722f56a-5f4c-51f4-847d-90472033cf16:1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
+        "Referer": url
+    }
+
+    session.headers.update(headers)
     
     df = pd.DataFrame(columns=['server','search_word','english_word','english_phrase','spanish_word','spanish_phrase','link'])
     
 #     print(uniqueword,url)
 
     try:
-        response = requests.get(url)
+        response = session.get(url)
         if response.status_code == 200 :
 
             response2 = response.content.decode('latin-1')
